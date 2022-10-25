@@ -11,6 +11,17 @@ builder.Services.AddDbContext<PMDbContext>(options => options.UseSqlServer(conne
 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Policy",
+                        policy =>
+                        {
+                            policy.WithOrigins("*")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                        });
+});
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -26,6 +37,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("Policy");
 
 app.UseAuthorization();
 
