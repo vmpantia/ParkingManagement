@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PM.Api.Contractors;
 using PM.Api.DataAccess;
 using PM.Api.Models;
+using PM.Api.Models.Request;
 
 namespace PM.Api.Controllers
 {
@@ -56,6 +57,21 @@ namespace PM.Api.Controllers
             }
         }
 
+
+        [HttpPost("SaveCustomer")]
+        public async Task<ActionResult> SaveCustomerAsync(CustomerRequest request)
+        {
+            try
+            {
+                await _customer.SaveCustomerAsync(request);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
     }
 }

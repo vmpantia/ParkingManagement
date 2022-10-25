@@ -20,7 +20,7 @@ namespace PM.Api.DataAccess.Master_Tables
         public int Status { get; set; }
         [Required]
         public DateTime CreatedDate { get; set; }
-        public DateTime? ModifiedDate { get; set; }
-        public IEnumerable<Car> Cars { get; set; }
+        public DateTime ModifiedDate { get; set; }
+        public IEnumerable<Car>? Cars { get; set; }
     }
 }
