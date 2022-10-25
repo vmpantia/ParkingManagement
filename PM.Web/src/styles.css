@@ -1,9 +1,25 @@
-table thead {
-    font-weight: bold;
+table {
+    font-size: 15px;
 }
 
-.cstm-page-title{
-    padding: 10px;
-    font-size: 20px;
-    font-weight: bold;
+table thead {
+    font-weight: 600;
+    text-align: center;
 }
+
+svg{
+    margin-top: -5px;
+}
+
+.cstm-page-header{
+    border-bottom: 1px solid gainsboro;
+    padding: 10px;
+}
+    .cstm-page-header .page-name{
+        font-size: 25px;
+        font-weight: 600;
+    }
+    .cstm-page-header .page-description{
+        font-size: 14px;
+    }
+
