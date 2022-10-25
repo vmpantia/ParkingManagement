@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 
 /* COMPONENTS */
 import { CustomerComponent } from './customer/customer.component';
-import { ShowCustomerComponent } from './customer/show-customer/show-customer.component';
 import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
 
 /* SERVICES */
@@ -19,7 +18,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
   declarations: [
     AppComponent,
     CustomerComponent,
-    ShowCustomerComponent,
     AddEditCustomerComponent
   ],
   imports: [
