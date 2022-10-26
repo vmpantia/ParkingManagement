@@ -89,10 +89,13 @@ export class CustomerComponent implements OnInit {
   addCustomer() {
     //Change modal title to Add Customer
     this.modalTitle = "Add Customer";
+    
     //Set true in isNew to identified that the transaction is Adding a Customer
     this.isNew = true;
+
     //Initialize customerInfo
     this.customerInfo = new Customer();
+
     //Reset errorMessages
     this.errorMessages = [];
   }
@@ -100,15 +103,19 @@ export class CustomerComponent implements OnInit {
   editCustomer(id:any) {
     //Change modal title to Edit Customer
     this.modalTitle = "Edit Customer";
+
     //Set false in isNew to identified that the transaction is Editing a Customer
     this.isNew = false;
+
     //Get latest customer information in database using API
     this.getCustomerById(id);
+
     //Reset errorMessages
     this.errorMessages = [];
   }
 
   closeCustomerForm(){
+    //Initialize customerInfo
     this.customerInfo = new Customer();
   }
 
@@ -116,15 +123,24 @@ export class CustomerComponent implements OnInit {
   addCarFromSubForm() {
     //Set true in isCarSubFormShow to trigger the display of Car Sub Form
     this.isCarSubFormShow = true;
+
     //Initialize carInfo
     this.carInfo = new Car();
+
+    //Reset errorMessages
+    this.errorMessages = [];
   }
   
   saveCarFromSubForm(){
     //Parse car information
     this.util.parseCar(this.carInfo)
+
+    //Validate customer information
+    this.errorMessages = this.util.validateCar(this.carInfo);
+
     //Push the carInfo in customersInfo.cars 
     this.customerInfo.cars.push(this.carInfo);
+
     //Close CarSubForm
     this.closeCarSubForm();
   }
@@ -132,6 +148,7 @@ export class CustomerComponent implements OnInit {
   closeCarSubForm() {
     //Set false in isCarSubFormShow to trigger the close of Car Sub Form
     this.isCarSubFormShow = false;
+
     //Initialize carInfo
     this.carInfo = new Car();
   }

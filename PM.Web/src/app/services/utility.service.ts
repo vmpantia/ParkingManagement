@@ -35,20 +35,42 @@ export class UtilityService {
     car.color = car.color.trim().toUpperCase();
   }
 
-  validateCustomer(newCustomer:Customer) {
+  validateCustomer(customer:Customer) {
     let errorMessages:any = [];
 
-    if(newCustomer.firstName === Globals.EMPTY_STRING) {
+    if(customer.firstName === Globals.EMPTY_STRING) {
       errorMessages.push("The First Name field is required.")
     }
-    if(newCustomer.lastName === Globals.EMPTY_STRING) {
+    if(customer.lastName === Globals.EMPTY_STRING) {
       errorMessages.push("The Last Name field is required.")
     }
-    if(newCustomer.contactNo === Globals.EMPTY_STRING) {
+    if(customer.contactNo === Globals.EMPTY_STRING) {
       errorMessages.push("The Contact Number field is required.")
     }
-    if(newCustomer.address === Globals.EMPTY_STRING) {
+    if(customer.address === Globals.EMPTY_STRING) {
       errorMessages.push("The Address field is required.")
+    }
+
+    return errorMessages;
+  }
+
+  validateCar(car:Car) {
+    let errorMessages:any = [];
+
+    if(car.plateNo === Globals.EMPTY_STRING) {
+      errorMessages.push("The Plate Number field is required.")
+    }
+    if(car.type === Globals.EMPTY_STRING) {
+      errorMessages.push("The Type field is required.")
+    }
+    if(car.yearModel === Globals.EMPTY_STRING) {
+      errorMessages.push("The Year Model field is required.")
+    }
+    if(car.make === Globals.EMPTY_STRING) {
+      errorMessages.push("The Make field is required.")
+    }    
+    if(car.color === Globals.EMPTY_STRING) {
+      errorMessages.push("The Color field is required.")
     }
 
     return errorMessages;
