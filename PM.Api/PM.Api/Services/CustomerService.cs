@@ -56,6 +56,7 @@ namespace PM.Api.Services
 
             if(isAdd)
             {
+                request.customerData.CustomerId = Guid.NewGuid();
                 request.customerData.CreatedDate = DateTime.Now;
                 request.customerData.ModifiedDate = DateTime.Now;
                 await InsertCustomer(request.customerData);

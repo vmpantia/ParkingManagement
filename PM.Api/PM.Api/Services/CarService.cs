@@ -19,6 +19,7 @@ namespace PM.Api.Services
                 var isAdd = car.CarId == Guid.Empty;
                 if (isAdd)
                 {
+                    car.CarId = Guid.NewGuid();
                     car.CreatedDate = DateTime.Now;
                     car.ModifiedDate = DateTime.Now;
                     await InserCar(db, car);
@@ -37,7 +38,7 @@ namespace PM.Api.Services
 
         private async Task UpdateCar(PMDbContext db, Car car)
         {
-            var result = await _db.Customers.FindAsync(car.CarId);
+            var result = await _db.Cars.FindAsync(car.CarId);
 
             if (result == null)
                 throw new ServiceException("Data not found in database");
