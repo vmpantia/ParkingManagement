@@ -17,5 +17,6 @@ export class AddEditCustomerComponent implements OnInit {
 
   ngOnInit(): void {    
     this.newCustomerInfo = this.customerInfo;
+    console.log(this.newCustomerInfo);
   }
 }

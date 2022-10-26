@@ -1,3 +1,4 @@
+import { concat } from "rxjs";
 import { Globals } from "../common/globals.model";
 import { Car } from "./car.model";
 
@@ -11,5 +12,5 @@ export class Customer {
     public status:number = 0;
     public createdDate:Date;
     public modifiedDate:Date;
-    public cars:Car[];
+    public cars:Car[] = [];
 }

@@ -50,14 +50,12 @@ export class CustomerComponent implements OnInit {
     this.modalTitle = "Add Customer";
     this.isNew = true;
     this.customerInfo = new Customer();
-    console.log(this.customerInfo);
   }
 
   editCustomer(id:any) {
     this.modalTitle = "Edit Customer";
     this.isNew = false;
     this.getCustomerById(id);
-    console.log(this.customerInfo);
   }
 
   closeCustomerForm(){

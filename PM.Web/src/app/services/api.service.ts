@@ -2,24 +2,24 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Customer } from '../models/customer.model';
+import { Globals } from '../common/globals.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  readonly URL = "https://localhost:7220/api"
   constructor(private http:HttpClient) { }
 
   getCustomers():Observable<Customer[]> {
-    return this.http.get<any>(this.URL + '/Customer/GetCustomers');
+    return this.http.get<any>(Globals.URL + '/Customer/GetCustomers');
   }
 
   getCustomerById(id:any):Observable<Customer> {
-    return this.http.get<any>(this.URL + '/Customer/GetCustomerById?customerId=' + id);
+    return this.http.get<any>(Globals.URL + '/Customer/GetCustomerById?customerId=' + id);
   }
 
   SaveCustomer(val:any) {
-    return this.http.post(this.URL + '/Customer/SaveCustomer', val);
+    return this.http.post(Globals.URL + '/Customer/SaveCustomer', val);
   }
 }
