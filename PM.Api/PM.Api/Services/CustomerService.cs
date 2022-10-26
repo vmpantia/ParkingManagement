@@ -23,7 +23,7 @@ namespace PM.Api.Services
             var result = await _db.Customers.ToListAsync();
 
             if (result == null)
-                throw new ServiceException("Data not found in database");
+                throw new ServiceException(Constants.ERR_DATE_NOT_FOUND);
 
             return result;
         }
@@ -37,7 +37,7 @@ namespace PM.Api.Services
             var customer = await _db.Customers.FindAsync(customerId);
 
             if (customer == null)
-                throw new ServiceException("Data not found in database");
+                throw new ServiceException(Constants.ERR_DATE_NOT_FOUND);
 
             //Get related data based on paramater id
             customer.Cars = await _db.Cars.Where(data => data.CustomerId == customerId).ToListAsync();
@@ -49,7 +49,7 @@ namespace PM.Api.Services
         {
             if(request == null)
             {
-                throw new ServiceException("Request cannot be NULL");
+                throw new ServiceException(Constants.ERR_REQUEST_NULL);
             }
 
             var isAdd = request.customerData.CustomerId == Guid.Empty;
@@ -84,7 +84,7 @@ namespace PM.Api.Services
             var result = await _db.Customers.FindAsync(customer.CustomerId);
 
             if (result == null)
-                throw new ServiceException("Data not found in database");
+                throw new ServiceException(Constants.ERR_DATE_NOT_FOUND);
 
             _db.Entry(result).CurrentValues.SetValues(new
             {

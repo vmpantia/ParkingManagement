@@ -1,6 +1,7 @@
 ﻿using PM.Api.DataAccess;
 using PM.Api.DataAccess.Master_Tables;
 using PM.Api.Exceptions;
+using PM.Api.Models;
 
 namespace PM.Api.Services
 {
@@ -19,7 +20,6 @@ namespace PM.Api.Services
                 var isAdd = car.CarId == Guid.Empty;
                 if (isAdd)
                 {
-                    car.CarId = Guid.NewGuid();
                     car.CustomerId = customerId;
                     car.CreatedDate = DateTime.Now;
                     car.ModifiedDate = DateTime.Now;
@@ -39,10 +39,10 @@ namespace PM.Api.Services
 
         private async Task UpdateCar(PMDbContext db, Car car)
         {
-            var result = await _db.Cars.FindAsync(car.CarId);
+            var result = await db.Cars.FindAsync(car.CarId);
 
             if (result == null)
-                throw new ServiceException("Data not found in database");
+                throw new ServiceException(Constants.ERR_DATE_NOT_FOUND);
 
             db.Entry(result).CurrentValues.SetValues(new
             {
