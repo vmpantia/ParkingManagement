@@ -33,3 +33,15 @@ svg{
     background-color: whitesmoke;
     color: dimgray;
 }
+
+.cstm-btn {
+    background-color: white;
+    border:none;
+    padding: 7px;;
+    font-weight: 600;
+}
+
+.cstm-btn:hover {
+    background-color: gainsboro;
+}
+
