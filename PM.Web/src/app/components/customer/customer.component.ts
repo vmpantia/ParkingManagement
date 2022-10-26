@@ -33,9 +33,12 @@ export class CustomerComponent implements OnInit {
     this.getCustomers();
   }
 
-  //Customer Functions
+  /**#################### CUSTOMER FUNCTIONS ####################**/
   getCustomers(){
+    //Reset errorMessages
     this.errorMessages = [];
+
+    //Get customers from database using API
     this.api.getCustomers().subscribe(
       (res) => {
         this.customers = res;
@@ -44,66 +47,92 @@ export class CustomerComponent implements OnInit {
   }
   
   getCustomerById(id:any) {
+    //Get specific customer from database based on the given id using API
     this.api.getCustomerById(id).subscribe(
       (res) => {
+        //Store response in custemerInfo
         this.customerInfo = res;
       }
     )
   }
   
   saveCustomer() {
+    //Parse customer information
     this.util.parseCustomer(this.customerInfo);
+
+    //Validate customer information
     this.errorMessages = this.util.validateCustomer(this.customerInfo);
-    console.log(this.errorMessages);
-    if(this.errorMessages.length !== 0)
-    {
+
+    //Check if there's an errorMessages coming from the validation
+    if(this.errorMessages.length !== 0) {
       return;
     }
 
+    //Initialize CustomerRequest model
     let model = new CustomerRequest();
+    //Store customer information to request model
     model.customerData = this.customerInfo;
 
+    //Save customer information in database using API
     this.api.SaveCustomer(model).subscribe(
       (res) => {
+        //If success reload page
         window.location.reload();
       },
       (err:HttpErrorResponse) => {
+        //If error store the error in errorMessages
         this.errorMessages.push(err.error.title);
       }
     );
   }
 
   addCustomer() {
+    //Change modal title to Add Customer
     this.modalTitle = "Add Customer";
+    //Set true in isNew to identified that the transaction is Adding a Customer
     this.isNew = true;
+    //Initialize customerInfo
     this.customerInfo = new Customer();
+    //Reset errorMessages
+    this.errorMessages = [];
   }
 
   editCustomer(id:any) {
+    //Change modal title to Edit Customer
     this.modalTitle = "Edit Customer";
+    //Set false in isNew to identified that the transaction is Editing a Customer
     this.isNew = false;
+    //Get latest customer information in database using API
     this.getCustomerById(id);
+    //Reset errorMessages
+    this.errorMessages = [];
   }
 
   closeCustomerForm(){
     this.customerInfo = new Customer();
   }
 
-  //Car Functions
+  /**#################### CAR FUNCTIONS ####################**/
   addCarFromSubForm() {
+    //Set true in isCarSubFormShow to trigger the display of Car Sub Form
     this.isCarSubFormShow = true;
+    //Initialize carInfo
     this.carInfo = new Car();
   }
   
   saveCarFromSubForm(){
+    //Parse car information
     this.util.parseCar(this.carInfo)
+    //Push the carInfo in customersInfo.cars 
     this.customerInfo.cars.push(this.carInfo);
-    console.log(this.customerInfo);
+    //Close CarSubForm
     this.closeCarSubForm();
   }
 
   closeCarSubForm() {
+    //Set false in isCarSubFormShow to trigger the close of Car Sub Form
     this.isCarSubFormShow = false;
+    //Initialize carInfo
     this.carInfo = new Car();
   }
 }

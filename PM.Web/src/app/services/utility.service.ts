@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { getNgModuleById, Injectable } from '@angular/core';
 import { Globals } from '../common/globals.model';
 import { Car } from '../models/car.model';
 import { Customer } from '../models/customer.model';
@@ -35,21 +35,22 @@ export class UtilityService {
     car.color = car.color.trim().toUpperCase();
   }
 
-  validateCustomer(customer:Customer):any {
+  validateCustomer(newCustomer:Customer) {
     let errorMessages:any = [];
 
-    if(customer.firstName.trim() === Globals.EMPTY_STRING) {
+    if(newCustomer.firstName === Globals.EMPTY_STRING) {
       errorMessages.push("The First Name field is required.")
     }
-    if(customer.lastName.trim() === Globals.EMPTY_STRING) {
+    if(newCustomer.lastName === Globals.EMPTY_STRING) {
       errorMessages.push("The Last Name field is required.")
     }
-    if(customer.contactNo.trim() === Globals.EMPTY_STRING) {
+    if(newCustomer.contactNo === Globals.EMPTY_STRING) {
       errorMessages.push("The Contact Number field is required.")
     }
-    if(customer.address.trim() === Globals.EMPTY_STRING) {
+    if(newCustomer.address === Globals.EMPTY_STRING) {
       errorMessages.push("The Address field is required.")
     }
+
     return errorMessages;
   }
 }
