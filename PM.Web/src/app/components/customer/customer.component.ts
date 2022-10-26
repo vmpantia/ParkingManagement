@@ -1,11 +1,13 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, ErrorHandler, OnInit } from '@angular/core';
 import { ConnectableObservable } from 'rxjs';
 import { Globals } from 'src/app/common/globals.model';
 import { Car } from 'src/app/models/car.model';
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerRequest } from 'src/app/models/requests/customer-request.model';
 import { ApiService } from 'src/app/services/api.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-customer',
@@ -14,14 +16,14 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class CustomerComponent implements OnInit {
 
-  constructor(private api:ApiService) { }
+  constructor(private api:ApiService, private util:UtilityService) { }
 
   modalTitle:string;
 
   isNew:boolean = true;
   isCarSubFormShow:boolean = false;
 
-  hasError:boolean = false;
+  errorMessages:any[] = [];
 
   customers:Customer[];
   customerInfo:Customer;
@@ -33,12 +35,10 @@ export class CustomerComponent implements OnInit {
 
   //Customer Functions
   getCustomers(){
+    this.errorMessages = [];
     this.api.getCustomers().subscribe(
       (res) => {
         this.customers = res;
-      },
-      (err) => {
-        this.hasError = true;
       }
     )
   }
@@ -52,14 +52,23 @@ export class CustomerComponent implements OnInit {
   }
   
   saveCustomer() {
+    this.util.parseCustomer(this.customerInfo);
+    this.errorMessages = this.util.validateCustomer(this.customerInfo);
+    console.log(this.errorMessages);
+    if(this.errorMessages.length !== 0)
+    {
+      return;
+    }
+
     let model = new CustomerRequest();
     model.customerData = this.customerInfo;
 
-    console.log(model);
-    
     this.api.SaveCustomer(model).subscribe(
       (res) => {
         window.location.reload();
+      },
+      (err:HttpErrorResponse) => {
+        this.errorMessages.push(err.error.title);
       }
     );
   }
@@ -84,11 +93,12 @@ export class CustomerComponent implements OnInit {
   addCarFromSubForm() {
     this.isCarSubFormShow = true;
     this.carInfo = new Car();
-    this.carInfo.customerId = this.customerInfo.customerId;
   }
   
   saveCarFromSubForm(){
+    this.util.parseCar(this.carInfo)
     this.customerInfo.cars.push(this.carInfo);
+    console.log(this.customerInfo);
     this.closeCarSubForm();
   }
 

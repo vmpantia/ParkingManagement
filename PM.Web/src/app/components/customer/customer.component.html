@@ -21,6 +21,13 @@
                     </div>
                 </div>
 
+                <!-- Error Messages -->
+                <div class="row">
+                    <div class="alert alert-danger" role="alert" *ngIf="errorMessages?.length !== 0">
+                       <span *ngFor="let error of errorMessages">{{error}}<br></span>
+                    </div>
+                </div>
+
                 <!-- Personal Information -->
                 <div class="row mb-3">
                     <div class="cstm-info">
@@ -34,19 +41,19 @@
                     <div class="col-12 col-lg-4">
                         <div class="mb-3">
                             <label class="form-label">* First Name:</label>
-                            <input type="text" class="form-control" [(ngModel)]="customerInfo.firstName" name="firstName" placeholder="Input First Name">
+                            <input type="text" class="form-control" [(ngModel)]="customerInfo.firstName" name="firstName" placeholder="Input First Name" maxlength="40">
                         </div>
                     </div>
                     <div class="col-12 col-lg-4">
                         <div class="mb-3">
                             <label class="form-label">* Last Name:</label>
-                            <input type="text" class="form-control" [(ngModel)]="customerInfo.lastName" name="lastName" placeholder="Input Last Name">
+                            <input type="text" class="form-control" [(ngModel)]="customerInfo.lastName" name="lastName" placeholder="Input Last Name" maxlength="40">
                         </div>
                     </div>
                     <div class="col-12 col-lg-4">
                         <div class="mb-3">
                             <label class="form-label">Middle Name:</label>
-                            <input type="text" class="form-control" [(ngModel)]="customerInfo.middleName" name="middleName" placeholder="Input Middle Name">
+                            <input type="text" class="form-control" [(ngModel)]="customerInfo.middleName" name="middleName" placeholder="Input Middle Name" maxlength="40">
                         </div>
                     </div>
                 </div>
@@ -64,13 +71,13 @@
                     <div class="col-12 col-lg-4">
                         <div class="mb-3">
                             <label class="form-label">* Contact No.:</label>
-                            <input type="text" class="form-control" [(ngModel)]="customerInfo.contactNo" name="contactNo" placeholder="Input Contact Number">
+                            <input type="text" class="form-control" [(ngModel)]="customerInfo.contactNo" name="contactNo" placeholder="Input Contact Number" maxlength="15">
                         </div>
                     </div>
                     <div class="col-12 col-lg-8">
                         <div class="mb-3">
                             <label class="form-label">* Address:</label>
-                            <input type="text" class="form-control" [(ngModel)]="customerInfo.address" name="address" placeholder="Input Address">
+                            <input type="text" class="form-control" [(ngModel)]="customerInfo.address" name="address" placeholder="Input Address" maxlength="100">
                         </div>
                     </div>
                 </div>
@@ -91,31 +98,31 @@
                     <div class="col-12 col-lg-4">
                         <div class="mb-3">
                             <label class="form-label">* Plate No:</label>
-                            <input type="text" class="form-control" [(ngModel)]="carInfo.plateNo" name="plateNo" placeholder="Input Plate Number">
+                            <input type="text" class="form-control" [(ngModel)]="carInfo.plateNo" name="plateNo" placeholder="Input Plate Number" maxlength="20">
                         </div>
                     </div>
                     <div class="col-12 col-lg-2">
                         <div class="mb-3">
                             <label class="form-label">* Type:</label>
-                            <input type="text" class="form-control" [(ngModel)]="carInfo.type" name="type" placeholder="Input Type">
+                            <input type="text" class="form-control" [(ngModel)]="carInfo.type" name="type" placeholder="Input Type" maxlength="20">
                         </div>
                     </div>
                     <div class="col-12 col-lg-2">
                         <div class="mb-3">
                             <label class="form-label">* Year Model:</label>
-                            <input type="text" class="form-control" [(ngModel)]="carInfo.yearModel" name="yearModel" placeholder="Input Year Model">
+                            <input type="text" class="form-control" [(ngModel)]="carInfo.yearModel" name="yearModel" placeholder="Input Year Model" maxlength="4">
                         </div>
                     </div>
                     <div class="col-12 col-lg-2">
                         <div class="mb-3">
                             <label class="form-label">* Make:</label>
-                            <input type="text" class="form-control" [(ngModel)]="carInfo.make" name="make" placeholder="Input Make">
+                            <input type="text" class="form-control" [(ngModel)]="carInfo.make" name="make" placeholder="Input Make" maxlength="20">
                         </div>
                     </div>
                     <div class="col-12 col-lg-2">
                         <div class="mb-3">
                             <label class="form-label">* Color:</label>
-                            <input type="text" class="form-control" [(ngModel)]="carInfo.color" name="color" placeholder="Input Color">
+                            <input type="text" class="form-control" [(ngModel)]="carInfo.color" name="color" placeholder="Input Color" maxlength="20">
                         </div>
                     </div>    
                     <div class="row mb-3">
@@ -164,7 +171,7 @@
                     
                             <tbody>
                             <tr *ngIf="customerInfo.cars?.length === 0">
-                                <td class="text-center" colspan="7">
+                                <td class="text-center" colspan="8">
                                     No cars found in this customer
                                 </td>
                             </tr>
@@ -210,6 +217,7 @@
                     </div>
                 </div>
             
+                <!-- Save Button -->
                 <div class="row" *ngIf="!isCarSubFormShow">
                     <button type="button" class="btn btn-success btn-sm"
                         (click)="saveCustomer()">
@@ -274,7 +282,7 @@
                 </thead>
 
                 <tbody>
-                    <tr *ngIf="hasError">
+                    <tr *ngIf="errorMessages.length !== 0">
                         <td class="text-center" colspan="7">
                             Error in getting data from database
                         </td>   

@@ -5,6 +5,6 @@ namespace PM.Api.Services
 {
     public interface ICarService
     {
-        Task SaveCars(PMDbContext db, IEnumerable<Car> cars);
+        Task SaveCars(PMDbContext db, Guid customerId, IEnumerable<Car> cars);
     }
 }

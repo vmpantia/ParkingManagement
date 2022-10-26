@@ -12,7 +12,7 @@ namespace PM.Api.Services
             _db = dbContext;
         }
 
-        public async Task SaveCars(PMDbContext db, IEnumerable<Car> cars)
+        public async Task SaveCars(PMDbContext db, Guid customerId, IEnumerable<Car> cars)
         {
             foreach(Car car in cars)
             {
@@ -20,6 +20,7 @@ namespace PM.Api.Services
                 if (isAdd)
                 {
                     car.CarId = Guid.NewGuid();
+                    car.CustomerId = customerId;
                     car.CreatedDate = DateTime.Now;
                     car.ModifiedDate = DateTime.Now;
                     await InserCar(db, car);

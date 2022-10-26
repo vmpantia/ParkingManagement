@@ -56,7 +56,6 @@ namespace PM.Api.Services
 
             if(isAdd)
             {
-                request.customerData.CustomerId = Guid.NewGuid();
                 request.customerData.CreatedDate = DateTime.Now;
                 request.customerData.ModifiedDate = DateTime.Now;
                 await InsertCustomer(request.customerData);
@@ -65,12 +64,12 @@ namespace PM.Api.Services
             {
                 request.customerData.ModifiedDate = DateTime.Now;
                 await UpdateCustomer(request.customerData);
+                if (request.customerData.Cars != null && request.customerData.Cars.Count() > 0)
+                {
+                    await _car.SaveCars(_db, request.customerData.CustomerId, request.customerData.Cars);
+                }
             }
 
-            if(request.customerData.Cars != null && request.customerData.Cars.Count() > 0)
-            {
-                await _car.SaveCars(_db, request.customerData.Cars);
-            }
 
             await _db.SaveChangesAsync();
         }
