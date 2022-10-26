@@ -75,7 +75,7 @@
                     </div>
                 </div>
             
-                <!-- Car Information -->
+                <!-- Cars Information -->
                 <div class="row mb-3">
                     <div class="cstm-info">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-car-front-fill" viewBox="0 0 16 16">
@@ -85,64 +85,64 @@
                     </div>
                 </div>
 
-                <!-- Car Information -->
-                <div class="container" *ngIf="isCarSubFormShow">
-                    <div class="row">
-                        <div class="col-12 col-lg-4">
-                            <div class="mb-3">
-                                <label class="form-label">* Plate No:</label>
-                                <input type="text" class="form-control" [(ngModel)]="carInfo.plateNo" name="plateNo" placeholder="Input Plate Number">
-                            </div>
+                <!-- Car Sub Form -->
+                <div class="row" *ngIf="isCarSubFormShow">
+
+                    <div class="col-12 col-lg-4">
+                        <div class="mb-3">
+                            <label class="form-label">* Plate No:</label>
+                            <input type="text" class="form-control" [(ngModel)]="carInfo.plateNo" name="plateNo" placeholder="Input Plate Number">
                         </div>
-                        <div class="col-12 col-lg-2">
-                            <div class="mb-3">
-                                <label class="form-label">* Type:</label>
-                                <input type="text" class="form-control" [(ngModel)]="carInfo.type" name="type" placeholder="Input Type">
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-2">
-                            <div class="mb-3">
-                                <label class="form-label">* Year Model:</label>
-                                <input type="text" class="form-control" [(ngModel)]="carInfo.yearModel" name="yearModel" placeholder="Input Year Model">
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-2">
-                            <div class="mb-3">
-                                <label class="form-label">* Make:</label>
-                                <input type="text" class="form-control" [(ngModel)]="carInfo.make" name="make" placeholder="Input Make">
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-2">
-                            <div class="mb-3">
-                                <label class="form-label">* Color:</label>
-                                <input type="text" class="form-control" [(ngModel)]="carInfo.color" name="color" placeholder="Input Color">
-                            </div>
-                        </div>    
                     </div>
-                    
+                    <div class="col-12 col-lg-2">
+                        <div class="mb-3">
+                            <label class="form-label">* Type:</label>
+                            <input type="text" class="form-control" [(ngModel)]="carInfo.type" name="type" placeholder="Input Type">
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-2">
+                        <div class="mb-3">
+                            <label class="form-label">* Year Model:</label>
+                            <input type="text" class="form-control" [(ngModel)]="carInfo.yearModel" name="yearModel" placeholder="Input Year Model">
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-2">
+                        <div class="mb-3">
+                            <label class="form-label">* Make:</label>
+                            <input type="text" class="form-control" [(ngModel)]="carInfo.make" name="make" placeholder="Input Make">
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-2">
+                        <div class="mb-3">
+                            <label class="form-label">* Color:</label>
+                            <input type="text" class="form-control" [(ngModel)]="carInfo.color" name="color" placeholder="Input Color">
+                        </div>
+                    </div>    
                     <div class="row mb-3">
                         <div class="col-12">
-                            <button type="button" class="btn btn-primary btn-sm"
+                            <button type="button" class="btn btn-success btn-sm"
                                 (click)="saveCarFromSubForm()">
-                                Save Car
+                                Save
                             </button>
                             &nbsp;
                             <button type="button" class="btn btn-secondary btn-sm"
                                 (click)="closeCarSubForm()">
                                 Cancel
                             </button>
-                        </div>                        
-                        <div class="col-12">
                         </div>
                     </div>
+
                 </div>
 
                 <!-- Car List -->
-                <div class="row mb-3" *ngIf="!isCarSubFormShow">
+                <div class="row" *ngIf="!isCarSubFormShow">
                     <div class="row mb-3">
                         <div class="col-12">
                             <button type="button" class="btn btn-primary btn-sm"
                                 (click)="addCarFromSubForm()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
                                 Add Car
                             </button>
                         </div>
@@ -152,6 +152,10 @@
                             <thead>
                                 <tr>
                                     <td>Plate No.</td>
+                                    <td>Type</td>
+                                    <td>Year Model</td>
+                                    <td>Make</td>
+                                    <td>Color</td>
                                     <td>Status</td>
                                     <td>Created Date</td>
                                     <td>Action</td>
@@ -166,6 +170,10 @@
                             </tr>
                             <tr *ngFor="let car of customerInfo.cars">
                                 <td>{{ car.plateNo }}</td>
+                                <td>{{ car.type }}</td>
+                                <td>{{ car.yearModel }}</td>
+                                <td>{{ car.make }}</td>
+                                <td>{{ car.color }}</td>
 
                                 <!-- Status Condition -->
                                 <ng-container *ngIf="car.status == 0;">
@@ -203,7 +211,7 @@
                 </div>
             
                 <div class="row" *ngIf="!isCarSubFormShow">
-                    <button type="button" class="btn btn-primary btn-sm"
+                    <button type="button" class="btn btn-success btn-sm"
                         (click)="saveCustomer()">
                         Save Customer
                     </button>

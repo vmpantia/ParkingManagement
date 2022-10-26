@@ -16,7 +16,7 @@ export class ApiService {
   }
 
   getCustomerById(id:any):Observable<Customer> {
-    return this.http.get<any>(Globals.URL + '/Customer/GetCustomerById?customerId=' + id);
+    return this.http.get<any>(Globals.URL + '/Customer/GetCustomerById/' + id);
   }
 
   SaveCustomer(model:any) {

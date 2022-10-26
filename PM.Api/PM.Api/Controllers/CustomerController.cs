@@ -38,7 +38,7 @@ namespace PM.Api.Controllers
             }
         }
 
-        [HttpGet("GetCustomerById")]
+        [HttpGet("GetCustomerById/{customerId}")]
         public async Task<ActionResult> GetCustomerByIdAsync(Guid customerId)
         {
             try
