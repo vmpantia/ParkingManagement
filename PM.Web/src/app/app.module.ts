@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 
 /* COMPONENTS */
 import { CustomerComponent } from './components/customer/customer.component';
-import { AddEditCustomerComponent } from './components/customer/add-edit-customer/add-edit-customer.component';
 
 /* SERVICES */
 import { ApiService } from './services/api.service';
@@ -18,7 +17,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
   declarations: [
     AppComponent,
     CustomerComponent,
-    AddEditCustomerComponent
   ],
   imports: [
     BrowserModule,
