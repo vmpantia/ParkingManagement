@@ -5,8 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 /* COMPONENTS */
-import { CustomerComponent } from './customer/customer.component';
-import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
+import { CustomerComponent } from './components/customer/customer.component';
+import { AddEditCustomerComponent } from './components/customer/add-edit-customer/add-edit-customer.component';
 
 /* SERVICES */
 import { ApiService } from './services/api.service';

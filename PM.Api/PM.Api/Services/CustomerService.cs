@@ -28,6 +28,9 @@ namespace PM.Api.Services
 
         public async Task<Customer> GetCustomerByIdAsync(Guid customerId)
         {
+            if (customerId == Guid.Empty)
+                return new Customer();
+
             //Get data based on parameter id
             var customer = await _db.Customers.FindAsync(customerId);
 

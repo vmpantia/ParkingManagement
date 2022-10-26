@@ -23,3 +23,13 @@ svg{
         font-size: 14px;
     }
 
+
+.cstm-info{
+    font-size: 15px;
+    font-weight: 600;
+    padding: 10px;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    color: dimgray;
+}
