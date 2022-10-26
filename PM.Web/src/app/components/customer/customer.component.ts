@@ -92,6 +92,7 @@ export class CustomerComponent implements OnInit {
 
     //Set true in isNew to identified that the transaction is Adding a Customer
     this.isNew = true;
+    this.isCarSubFormShow = false;
 
     //Initialize customerInfo
     this.customerInfo = new Customer();
@@ -117,6 +118,8 @@ export class CustomerComponent implements OnInit {
   closeCustomerForm(){
     //Initialize customerInfo
     this.customerInfo = new Customer();
+
+    this.isCarSubFormShow = false;
   }
 
   /**#################### CAR FUNCTIONS ####################**/
