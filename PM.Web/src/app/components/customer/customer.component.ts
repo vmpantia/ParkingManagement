@@ -89,7 +89,7 @@ export class CustomerComponent implements OnInit {
   addCustomer() {
     //Change modal title to Add Customer
     this.modalTitle = "Add Customer";
-    
+
     //Set true in isNew to identified that the transaction is Adding a Customer
     this.isNew = true;
 
@@ -137,6 +137,11 @@ export class CustomerComponent implements OnInit {
 
     //Validate customer information
     this.errorMessages = this.util.validateCar(this.carInfo);
+    
+    //Check if there's an errorMessages coming from the validation
+    if(this.errorMessages.length !== 0) {
+      return;
+    }
 
     //Push the carInfo in customersInfo.cars 
     this.customerInfo.cars.push(this.carInfo);
