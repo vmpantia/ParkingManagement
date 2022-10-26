@@ -11,9 +11,11 @@ namespace PM.Api.Services
     public class CustomerService : ICustomerService
     {
         private readonly PMDbContext _db;
-        public CustomerService(PMDbContext dbContext)
+        private readonly ICarService _car;
+        public CustomerService(PMDbContext dbContext, ICarService carService)
         {
             _db = dbContext;
+            _car = carService;
         }
 
         public async Task<IEnumerable<Customer>> GetCustomersAsync(FilterSetting filter)
@@ -64,12 +66,17 @@ namespace PM.Api.Services
                 await UpdateCustomer(request.customerData);
             }
 
+            if(request.customerData.Cars != null && request.customerData.Cars.Count() > 0)
+            {
+                await _car.SaveCars(_db, request.customerData.Cars);
+            }
+
             await _db.SaveChangesAsync();
         }
 
         private async Task InsertCustomer(Customer customer)
         {
-            await _db.AddAsync(customer);
+            await _db.Customers.AddAsync(customer);
         }
 
         private async Task UpdateCustomer(Customer customer)

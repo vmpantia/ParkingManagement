@@ -19,7 +19,7 @@ export class ApiService {
     return this.http.get<any>(Globals.URL + '/Customer/GetCustomerById?customerId=' + id);
   }
 
-  SaveCustomer(val:any) {
-    return this.http.post(Globals.URL + '/Customer/SaveCustomer', val);
+  SaveCustomer(model:any) {
+    return this.http.post(Globals.URL + '/Customer/SaveCustomer', model);
   }
 }

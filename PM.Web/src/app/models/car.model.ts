@@ -9,6 +9,6 @@ export class Car {
     public make:string = Globals.EMPTY_STRING;
     public color:string = Globals.EMPTY_STRING;
     public status:number = 0;
-    public createdDate:Date;
-    public modifiedDate:Date;
+    public createdDate:Date = new Date();
+    public modifiedDate:Date = new Date();
 }

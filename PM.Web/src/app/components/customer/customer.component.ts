@@ -1,6 +1,9 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { ConnectableObservable } from 'rxjs';
 import { Globals } from 'src/app/common/globals.model';
 import { Customer } from 'src/app/models/customer.model';
+import { CustomerRequest } from 'src/app/models/requests/customer-request.model';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -39,11 +42,21 @@ export class CustomerComponent implements OnInit {
     this.api.getCustomerById(id).subscribe(
       (res) => {
         this.customerInfo = res;
-      },
-      (err) => {
-        this.hasError = true;
       }
     )
+  }
+  
+  saveCustomer() {
+    let model = new CustomerRequest();
+    model.customerData = this.customerInfo;
+
+    console.log(model);
+    
+    this.api.SaveCustomer(model).subscribe(
+      (res) => {
+        window.location.reload();
+      }
+    );
   }
 
   addCustomer() {
@@ -59,7 +72,7 @@ export class CustomerComponent implements OnInit {
   }
 
   closeCustomerForm(){
-    window.location.reload();
+    this.customerInfo = new Customer();
   }
 
 }

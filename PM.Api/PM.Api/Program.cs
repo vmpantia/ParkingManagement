@@ -10,6 +10,7 @@ var connectionString = builder.Configuration.GetConnectionString("DEV_SQL_CON");
 builder.Services.AddDbContext<PMDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ICarService, CarService>();
 
 builder.Services.AddCors(options =>
 {
