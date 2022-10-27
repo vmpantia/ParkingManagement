@@ -64,28 +64,31 @@ export class CustomerComponent implements OnInit {
     //Change modal title to Add Customer
     this.modalTitle = "Add Customer";
 
-    //Initialize customerInfo
-    this.customerInfo = new Customer();
-
-    //Reset errorMessages
-    this.errorMessages = [];
+    this.resetVariables();
   }
 
   editCustomer(id:any) {
     //Change modal title to Edit Customer
     this.modalTitle = "Edit Customer";
+    
+    this.resetVariables();
 
     //Get latest customer information in database using API
     this.getCustomerById(id);
-
-    //Reset errorMessages
-    this.errorMessages = [];
   }
 
   closeCustomerForm(){
-    //Initialize customerInfo
-    this.customerInfo = new Customer();
+    this.resetVariables();
+
     //Reload page
     window.location.reload();
+  }
+
+  resetVariables(){
+    //Initialize carInfo
+    this.customerInfo = new Customer();
+
+    //Reset errorMessages
+    this.errorMessages = [];
   }
 }
