@@ -71,7 +71,8 @@ export class CustomerComponent implements OnInit {
     //Change modal title to Edit Customer
     this.modalTitle = "Edit Customer";
     
-    this.resetVariables();
+    //Reset errorMessages
+    this.errorMessages = [];
 
     //Get latest customer information in database using API
     this.getCustomerById(id);
