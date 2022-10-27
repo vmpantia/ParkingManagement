@@ -1,13 +1,16 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ThisReceiver } from '@angular/compiler';
-import { Component, ErrorHandler, OnInit } from '@angular/core';
-import { ConnectableObservable } from 'rxjs';
-import { Globals } from 'src/app/common/globals.model';
+import { Component, OnInit } from '@angular/core';
+import swal from 'sweetalert2';
+
+/* MODELS */
 import { Car } from 'src/app/models/car.model';
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerRequest } from 'src/app/models/requests/customer-request.model';
+
+/* SERVICES */
 import { ApiService } from 'src/app/services/api.service';
 import { UtilityService } from 'src/app/services/utility.service';
+
 
 @Component({
   selector: 'app-customer',
@@ -76,8 +79,11 @@ export class CustomerComponent implements OnInit {
     //Save customer information in database using API
     this.api.SaveCustomer(model).subscribe(
       (res) => {
-        //If success reload page
-        window.location.reload();
+        swal.fire("Success","Customer saved successfully", "success")
+        .then(() => {
+          //If success reload page
+          window.location.reload();
+        })
       },
       (err:HttpErrorResponse) => {
         //If error store the error in errorMessages
