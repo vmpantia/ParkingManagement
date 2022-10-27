@@ -54,6 +54,11 @@ namespace PM.Api.Services
 
             var isAdd = request.customerData.CustomerId == Guid.Empty;
 
+            //Backend Validation of Customer
+            var errorMessage = await ValidateCustomer(request.customerData, isAdd);
+            if (!string.IsNullOrEmpty(errorMessage))
+                throw new ServiceException(errorMessage);
+
             if(isAdd)
             {
                 request.customerData.CreatedDate = DateTime.Now;
@@ -96,6 +101,43 @@ namespace PM.Api.Services
                 customer.Status,
                 customer.ModifiedDate
             });
+        }
+
+        private async Task<string> ValidateCustomer(Customer customer, bool isAdd)
+        {
+            if (customer == null)
+                //Throw an Error if Customer NULL
+                return Constants.ERR_CUSTOMER_NULL;
+
+            if (!isAdd)
+            {
+                var oldCustomer = await _db.Customers.FindAsync(customer.CustomerId);
+                if (oldCustomer == null)
+                    //Throw an Error if old customer data can't be found
+                    return Constants.ERR_DATE_NOT_FOUND;
+
+                //Check if there are changes made
+                if (customer.FirstName == oldCustomer.FirstName &&
+                    customer.LastName == oldCustomer.LastName &&
+                    customer.MiddleName == oldCustomer.MiddleName &&
+                    customer.ContactNo == oldCustomer.ContactNo &&
+                    customer.Address == oldCustomer.Address)
+                    return Constants.ERR_NO_CHANGES;
+            }
+
+            var customers = await _db.Customers.Where(data => data.FirstName == customer.FirstName &&
+                                                              data.LastName == customer.LastName).ToListAsync();
+
+            if(customers.Any())
+            {
+                var isActive = customers.First().Status == Constants.STATUS_ENABLED;
+                if(isActive)
+                    return Constants.ERR_CUSTOMER_EXIST_ENABLE;
+
+                return Constants.ERR_CUSTOMER_EXIST_NOT_ENABLE;
+            }
+
+            return String.Empty;
         }
     }
 }

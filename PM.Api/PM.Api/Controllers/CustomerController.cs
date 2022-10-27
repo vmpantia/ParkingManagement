@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PM.Api.Contractors;
 using PM.Api.DataAccess;
+using PM.Api.Exceptions;
 using PM.Api.Models;
 using PM.Api.Models.Request;
 
@@ -32,6 +33,12 @@ namespace PM.Api.Controllers
 
                 return Ok(result);
             }
+            //Handle Custom Exception
+            catch (ServiceException ex)
+            {
+                return Conflict(ex.Message);
+            }
+            //Handle Unexpected Exception
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -51,6 +58,12 @@ namespace PM.Api.Controllers
 
                 return Ok(result);
             }
+            //Handle Custom Exception
+            catch (ServiceException ex)
+            {
+                return Conflict(ex.Message);
+            }
+            //Handle Unexpected Exception
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -67,6 +80,12 @@ namespace PM.Api.Controllers
 
                 return Ok();
             }
+            //Handle Custom Exception
+            catch (ServiceException ex)
+            {
+                return Conflict(ex.Message);
+            }
+            //Handle Unexpected Exception
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);

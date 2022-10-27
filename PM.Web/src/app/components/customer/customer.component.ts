@@ -81,6 +81,10 @@ export class CustomerComponent implements OnInit {
       },
       (err:HttpErrorResponse) => {
         //If error store the error in errorMessages
+        if(err.error?.length !== 0) {
+          this.errorMessages.push(err.error);
+          return;
+        }
         this.errorMessages.push(err.error.title);
       }
     );
