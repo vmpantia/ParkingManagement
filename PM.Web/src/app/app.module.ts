@@ -13,12 +13,14 @@ import { ApiService } from './services/api.service';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarComponent } from './components/car/car.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CustomerComponent,
     AddEditCustomerComponent,
+    CarComponent,
   ],
   imports: [
     BrowserModule,
