@@ -71,10 +71,9 @@ namespace PM.Api.Services
                 await UpdateCustomer(request.customerData);
                 if (request.customerData.Cars != null && request.customerData.Cars.Count() > 0)
                 {
-                    await _car.SaveCars(_db, request.customerData.CustomerId, request.customerData.Cars);
+                    await _car.SaveCarsAsync(request.customerData.Cars, request.customerData.CustomerId, _db);
                 }
             }
-
 
             await _db.SaveChangesAsync();
         }

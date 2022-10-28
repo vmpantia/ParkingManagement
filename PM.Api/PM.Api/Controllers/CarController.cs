@@ -1,34 +1,33 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PM.Api.Contractors;
-using PM.Api.DataAccess;
 using PM.Api.Exceptions;
 using PM.Api.Models;
 using PM.Api.Models.Request;
+using PM.Api.Services;
 
 namespace PM.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class CarController : ControllerBase
     {
-        private readonly ICustomerService _customer;
-        public CustomerController(ICustomerService customer)
+        private readonly ICarService _car;
+        public CarController(ICarService car)
         {
-            _customer = customer;
+            _car = car;
         }
 
-        [HttpGet("GetCustomers")]
-        public async Task<ActionResult> GetCustomersAsync()
+        [HttpGet("GetCars")]
+        public async Task<ActionResult> GetCarsAsync()
         {
             try
             {
                 //Get data from database using service
                 var filter = new FilterSetting();
-                var result = await _customer.GetCustomersAsync(filter);
+                var result = await _car.GetCarsAsync(filter);
 
                 //Check if the  result is NULL
-                if(result == null)
+                if (result == null)
                     return NotFound();
 
                 return Ok(result);
@@ -45,12 +44,12 @@ namespace PM.Api.Controllers
             }
         }
 
-        [HttpGet("GetCustomerById/{customerId}")]
-        public async Task<ActionResult> GetCustomerByIdAsync(Guid customerId)
+        [HttpGet("GetCarById/{carId}")]
+        public async Task<ActionResult> GetCarByIdAsync(Guid carId)
         {
             try
             {
-                var result = await _customer.GetCustomerByIdAsync(customerId);
+                var result = await _car.GetCarByIdAsync(carId);
 
                 //Check if the result is NULL
                 if (result == null)
@@ -70,12 +69,12 @@ namespace PM.Api.Controllers
             }
         }
 
-        [HttpPost("SaveCustomer")]
-        public async Task<ActionResult> SaveCustomerAsync(CustomerRequest request)
+        [HttpPost("SaveCar")]
+        public async Task<ActionResult> SaveCustomerAsync(CarRequest request)
         {
             try
             {
-                await _customer.SaveCustomerAsync(request);
+                await _car.SaveCarAsync(request);
 
                 return Ok();
             }
