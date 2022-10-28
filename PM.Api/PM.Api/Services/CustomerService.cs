@@ -122,7 +122,44 @@ namespace PM.Api.Services
                     customer.MiddleName == oldCustomer.MiddleName &&
                     customer.ContactNo == oldCustomer.ContactNo &&
                     customer.Address == oldCustomer.Address)
+                {
+                    var isChange = false;
+
+                    if (customer.Cars != null)
+                    {
+                        foreach (var car in customer.Cars)
+                        {
+                            if (car.CustomerId == Guid.Empty)
+                            {
+                                isChange = true;
+                                continue;
+                            }
+
+                            var oldCar = await _db.Cars.FindAsync(car.CarId);
+                            if (oldCar == null)
+                            {
+                                isChange = true;
+                                continue;
+                            }
+
+                            if (car.PlateNo == oldCar.PlateNo &&
+                               car.Type == oldCar.Type &&
+                               car.YearModel == oldCar.YearModel &&
+                               car.Make == oldCar.Make &&
+                               car.Color == oldCar.Color)
+                            {
+                                isChange = false;
+                                continue;
+                            }
+                        }
+                    }
+
+                    if (isChange)
+                        return String.Empty;
+
                     return Constants.ERR_NO_CHANGES;
+
+                }
             }
 
             var customers = await _db.Customers.Where(data => data.FirstName == customer.FirstName &&
