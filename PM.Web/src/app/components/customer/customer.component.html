@@ -71,14 +71,19 @@
                 </thead>
 
                 <tbody>
-                    <tr *ngIf="errorMessages.length !== 0">
+                    <tr *ngIf="customers === undefined && errorMessages.length === 0">
                         <td class="text-center" colspan="7">
-                            Error in getting data from database
+                            Loading....
                         </td>   
                     </tr>
-                    <tr *ngIf="customers?.length === 0">
+                    <tr *ngIf="customers === undefined && errorMessages.length !== 0">
                         <td class="text-center" colspan="7">
-                            No data found in database
+                            Error in getting data from database.
+                        </td>   
+                    </tr>
+                    <tr *ngIf="customers?.length === 0 && errorMessages.length === 0">
+                        <td class="text-center" colspan="7">
+                            No data found in database.
                         </td>
                     </tr>
                     <tr *ngFor="let customer of customers">
