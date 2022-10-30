@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Car } from 'src/app/models/car.model';
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerRequest } from 'src/app/models/requests/customer-request.model';
+import { FilterSetting } from 'src/app/models/requests/filtersetting.model';
 
 /* SERVICES */
 import { ApiService } from 'src/app/services/api.service';
@@ -25,6 +26,7 @@ export class CustomerComponent implements OnInit {
 
   customers:Customer[];
   customerInfo:Customer;
+  filterSetting:FilterSetting = new FilterSetting();
 
   ngOnInit(): void {
     this.getCustomers();
@@ -35,7 +37,7 @@ export class CustomerComponent implements OnInit {
     this.errorMessages = [];
 
     //Get customers from database using API
-    this.api.getCustomers().subscribe(
+    this.api.getCustomers(this.filterSetting).subscribe(
       (res) => {
         this.customers = res;
       },

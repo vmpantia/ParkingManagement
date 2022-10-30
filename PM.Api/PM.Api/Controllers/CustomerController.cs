@@ -18,13 +18,12 @@ namespace PM.Api.Controllers
             _customer = customer;
         }
 
-        [HttpGet("GetCustomers")]
-        public async Task<ActionResult> GetCustomersAsync()
+        [HttpPost("GetCustomers")]
+        public async Task<ActionResult> GetCustomersAsync(FilterSetting filter)
         {
             try
             {
                 //Get data from database using service
-                var filter = new FilterSetting();
                 var result = await _customer.GetCustomersAsync(filter);
 
                 //Check if the  result is NULL

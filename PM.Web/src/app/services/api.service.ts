@@ -11,15 +11,15 @@ export class ApiService {
 
   constructor(private http:HttpClient) { }
 
-  getCustomers():Observable<Customer[]> {
-    return this.http.get<any>(Globals.URL + '/Customer/GetCustomers');
+  getCustomers(filter:any):Observable<Customer[]> {
+    return this.http.post<any>(Globals.URL + '/Customer/GetCustomers',filter);
   }
 
   getCustomerById(id:any):Observable<Customer> {
     return this.http.get<any>(Globals.URL + '/Customer/GetCustomerById/' + id);
   }
 
-  SaveCustomer(model:any) {
+  saveCustomer(model:any) {
     return this.http.post(Globals.URL + '/Customer/SaveCustomer', model);
   }
 }

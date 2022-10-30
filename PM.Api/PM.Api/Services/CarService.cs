@@ -43,7 +43,7 @@ namespace PM.Api.Services
         {
             foreach(var car in cars)
             {
-                car.CarId = customerId;
+                car.CustomerId = customerId;
                 await SaveCar(car, db);
             }
         }

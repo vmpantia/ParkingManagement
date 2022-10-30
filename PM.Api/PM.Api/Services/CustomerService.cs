@@ -20,21 +20,46 @@ namespace PM.Api.Services
 
         public async Task<IEnumerable<Customer>> GetCustomersAsync(FilterSetting filter)
         {
-            var result = await _db.Customers.ToListAsync();
+            IEnumerable<Customer> result;
+
+            if (filter.DateFrom == null || filter.DateTo == null)
+            {
+                //Get All
+                result = await _db.Customers.ToListAsync();
+            }
+            else
+            {
+                //Get by Date Range
+                var dateFromValue = ((DateTime)filter.DateFrom).Date;
+                var dateToValue = ((DateTime)filter.DateTo).Date.AddDays(1).AddTicks(-1);
+                result = await _db.Customers.Where(data => data.CreatedDate >= dateFromValue && 
+                                                     data.CreatedDate <= dateToValue).ToListAsync();
+            }
+
+            if(result.Count() > 0 && !string.IsNullOrEmpty(filter.Value))
+            {
+                //Get by Filter Value
+                result = result.Where(data => data.FirstName.Contains(filter.Value) ||
+                                              data.LastName.Contains(filter.Value) ||
+                                              data.MiddleName.Contains(filter.Value) ||
+                                              data.ContactNo.Contains(filter.Value) ||
+                                              data.Address.Contains(filter.Value)).ToList();
+            }
 
             if (result == null)
                 throw new ServiceException(Constants.ERR_DATE_NOT_FOUND);
 
-            return result;
+            return result.Skip(filter.PageSize * filter.PageNo).Take(filter.PageSize);
         }
 
         public async Task<Customer> GetCustomerByIdAsync(Guid customerId)
         {
+            var customer = new Customer();
             if (customerId == Guid.Empty)
-                return new Customer();
+                return customer;
 
             //Get data based on parameter id
-            var customer = await _db.Customers.FindAsync(customerId);
+            customer = await _db.Customers.FindAsync(customerId);
 
             if (customer == null)
                 throw new ServiceException(Constants.ERR_DATE_NOT_FOUND);

@@ -50,7 +50,7 @@ export class AddEditCustomerComponent implements OnInit {
     model.customerData = this.customerInfo;
 
     //Save customer information in database using API
-    this.api.SaveCustomer(model).subscribe(
+    this.api.saveCustomer(model).subscribe(
       (res) => {
         swal.fire("Success","Customer saved successfully", "success")
         .then(() => {

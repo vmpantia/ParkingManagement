@@ -2,9 +2,10 @@
 {
     public class FilterSetting
     {
-        public string Type { get; set; }
-        public string Vaue { get; set; }
-        public DateTime? From { get; set; } 
-        public DateTime? To { get; set; } 
+        public string Value { get; set; }
+        public int PageSize { get; set; }
+        public int PageNo { get; set; }
+        public DateTime? DateFrom { get; set; } 
+        public DateTime? DateTo { get; set; }
     }
 }
